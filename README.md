@@ -6,7 +6,7 @@ Creating a todo list
     ----------- Get to the below later ---------------------
     - It can be used inside another application for special purposes
 
-- Task
+- Task:
     - Holds info regarding the action needed to be taken
     - Interface
     - Task methods are
@@ -14,7 +14,7 @@ Creating a todo list
         - toString() basically returns the same information of showTaskDescription
         - getTaskOriginator() returns the class that created this task and placed it in the items
 
-- Item 
+- Item: 
     - Item are what the todo list handles
     - Interface
     - Item methods are
@@ -22,7 +22,7 @@ Creating a todo list
         - getIsDone() returns boolean
         - setIsDone(bool status) void that sets the state of the item 
 
-- Todo List 
+- Todo List: 
     - Handles a list of Items 
     - Singleton (Will explain later)
     - Is able to show list of unfinished Items
