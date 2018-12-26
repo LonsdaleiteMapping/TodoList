@@ -1,6 +1,7 @@
 package TodoList;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class TodoList {
 
@@ -19,13 +20,9 @@ public class TodoList {
     }
 
     private ArrayList<Item> getItems(boolean finish){
-        ArrayList<Item> l = new ArrayList<Item>();
-        for (int i = 0; i < this.items.size(); i++)
-            if (finish && this.items.get(i).isDone())
-                l.add(this.items.get(i));
-            else if (!finish && !this.items.get(i).isDone())
-                l.add(this.items.get(i));
-        return l;
+        return this.items.stream().filter( item ->
+                (finish && item.isDone()) ||
+                        (!finish && !item.isDone())).collect(Collectors.toCollection(ArrayList::new));
     }
 
     public ArrayList<Item> getFinishedItems(){
