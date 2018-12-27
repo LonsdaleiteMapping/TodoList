@@ -1,9 +1,10 @@
 package TodoList;
 
+
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-public class TodoList {
+public class TodoList  {
 
     private ArrayList<Item> items;
 
@@ -41,5 +42,8 @@ public class TodoList {
         return (ArrayList<Item>)this.items.clone();
     }
 
+    public int getSize(){
+        return items.size();
+    }
 
 }
