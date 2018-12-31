@@ -10,25 +10,27 @@ import java.util.stream.Collectors;
 public class Snake {
     private final List<SnakeCell> snakeBody;
     private final SnakeActions snakeActions;
-    private int parentWidth,parentHeight;
-    private SnakeCell head;
+    private int colAmount, rowAmount;
+    private SnakeCell head; //  The head of the snake is the last item in the list
 
 
-    public Snake(Position position,int parentWidth,int parentHeight){
+    public Snake(Position position, int colAmount, int rowAmount){
+        this.rowAmount = rowAmount;
+        this.colAmount = colAmount;
+
         this.snakeBody = new SnakeBody();
         this.head = new SnakeCell(UUID.randomUUID().toString(),position);
-        this.parentHeight = parentHeight;
-        this.parentWidth = parentWidth;
+
         snakeBody.add(this.head);
         snakeActions = new SnakeActions(this);
     }
 
     /**
-     * The head of the snake is the last item in the list
+     *
      * @return the current position of the head
      */
     public Position getCurrentPosition()  {
-        return  snakeBody.get(snakeBody.size() -1).getPosition();
+        return  this.head.getPosition();
     }
 
     public SnakeActions getSnakeAction(){
@@ -37,6 +39,17 @@ public class Snake {
 
     protected List<SnakeCell> getSnakeBody(){
         return this.snakeBody;
+    }
+
+    protected int getColAmount(){ return this.colAmount; }
+    protected int getRowAmount() { return this.rowAmount; }
+
+    public SnakeCell getSnakeHead(){
+        return  this.head;
+    }
+
+    public boolean isApartOfSnake(Position pos){
+        return this.snakeBody.stream().filter( body -> body.getPosition().equals(pos)).collect(Collectors.toList()).size() == 1;
     }
 
     private class SnakeBody extends LinkedList<SnakeCell>{
@@ -49,13 +62,5 @@ public class Snake {
             }
             return result;
         }
-    }
-
-    public int getParentWidth() {
-        return parentWidth;
-    }
-
-    public int getParentHeight() {
-        return parentHeight;
     }
 }

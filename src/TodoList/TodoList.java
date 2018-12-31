@@ -34,8 +34,12 @@ public class TodoList  {
         return this.getItems(false);
     }
 
-    public Item getItemFromIndex(int index){
+    public Item getItem(int index){
         return this.items.get(index);
+    }
+
+    public Item getItem(Item item){
+        return this.getItem(this.items.indexOf(item));
     }
 
     public ArrayList<Item> getItems(){

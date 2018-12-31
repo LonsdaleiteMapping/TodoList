@@ -34,7 +34,7 @@ public class GameBoard extends JPanel implements PropertyChangeListener {
         int x = new Random().nextInt(cols);
         int y = new Random().nextInt(rows);
 
-        Snake snake = new Snake(new Position(x,y),parentWidth,parentHeight);
+        Snake snake = new Snake(new Position(x,y),cols,rows);
 
         for(int row = 0; row < rows; row++){
             for(int col =0; col < cols; col++){
@@ -43,7 +43,10 @@ public class GameBoard extends JPanel implements PropertyChangeListener {
 
                 Position cellPosition = new Position(col,row);
 
-                GameCell cellPane = new GameCell(parentHeight,parentWidth,col,row,snake.getCurrentPosition().equals(cellPosition));
+                GameCell cellPane = new GameCell(cellPosition,snake);
+
+                // Each cell listens for completion of actions
+                EventHandler.getInstance().trackItemDone(cellPane);
 
                 Border border = null;
                 if(row < rows - 1){
@@ -135,47 +138,29 @@ public class GameBoard extends JPanel implements PropertyChangeListener {
                 " -> " + evt.getNewValue() + ")");
         System.out.println("Property in object " + evt.getSource());
 
-        if(evt.getPropertyName().equals(ListenerNames.ITEM_ADDED)){
+        if(evt.getPropertyName().equals(ListenerNames.ITEM_ADDED.toString())){
+            System.out.println("Item Added in Board ");
+        }
 
+        if(evt.getPropertyName().equals(ListenerNames.ITEM_SET_DONE.toString())){
+            System.out.println("Reached here for item set done ");
         }
     }
 
-    private class GenericTest implements Item{
-
-        private Task task;
-        private boolean done;
+    private class GenericTest extends Item{
 
         public GenericTest(Task task){
-            this.task = task;
-            this.done = false;
-        }
-
-        @Override
-        public TodoList.Task getTask() {
-            return this.task;
+            super(task);
         }
 
         @Override
         public boolean isDone() {
-            return this.done;
+            return super.done;
         }
 
         @Override
         public void setDone(boolean val) {
-            this.done = val;
-        }
-    }
-
-    private class GenericTask implements TodoList.Task{
-
-        @Override
-        public String showTaskDescription() {
-            return "Description check";
-        }
-
-        @Override
-        public Class getTaskOriginator() {
-            return this.getClass();
+            super.done = val;
         }
     }
 }

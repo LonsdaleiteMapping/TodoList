@@ -1,47 +1,33 @@
 package SnakeGame.GameBoard;
 
+import SnakeGame.GameBoard.Snake.Snake;
+import SnakeGame.enums.ListenerNames;
 import SnakeGame.utility.Position;
+import TodoList.Item;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
-public class GameCell extends JPanel {
+public class GameCell extends JPanel implements PropertyChangeListener {
 
     private Color defaultBackground;
-
-    private int parentHeight;
-    private int parentWdith;
     private Position position;
-    private boolean apartOfSnake;
+    private final Snake snake;
 
 
 
-    public GameCell(int parentHeight, int parentWidth,int x, int y, boolean apartOfSnake){
-        this.parentHeight = parentHeight;
-        this.parentWdith = parentWidth;
-        this.position = new Position(x,y);
-        this.apartOfSnake = apartOfSnake;
+    public GameCell(Position position, Snake snake){
+        this.position = position;
+        this.snake = snake;
 
-        addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                defaultBackground = getBackground();
-                setBackground(Color.BLUE);
-            }
+        this.defaultBackground = this.getBackground();
 
-            @Override
-            public void mouseExited(MouseEvent e) {
-                setBackground(defaultBackground);
-            }
-        });
-
-        if(this.apartOfSnake){
+        if(isApartOfSnake()){
             setBackground(Color.RED);
         }
     }
-
 
 
     @Override
@@ -49,11 +35,28 @@ public class GameCell extends JPanel {
         return new Dimension(50,50);
     }
 
-    public Position getCurrentPosition(){
-        return this.position;
+
+    public boolean isApartOfSnake(){
+        return this.snake.isApartOfSnake(this.position);
     }
 
-    public Boolean isApartOfSnake(){
-        return this.apartOfSnake;
+    /**
+     * This method gets called when a bound property is changed.
+     *
+     * @param evt A PropertyChangeEvent object describing the event source
+     *            and the property that has changed.
+     */
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        if(evt.getPropertyName().equals(ListenerNames.ITEM_SET_DONE.toString())) {
+            Item item = (Item) evt.getNewValue();
+            if (item.isDone()) {
+                if (this.snake.isApartOfSnake(this.position)) {
+                    setBackground(Color.RED);
+                }else{
+                    setBackground(this.defaultBackground);
+                }
+            }
+        }
     }
 }

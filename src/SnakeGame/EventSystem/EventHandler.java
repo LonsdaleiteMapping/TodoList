@@ -59,10 +59,18 @@ public class EventHandler extends TodoList {
     // Probably need to see if this works
     @Override
     public void setItemDone(int index){
-        Item oldItem = super.getItemFromIndex(index);
-        super.setItemDone(index);
-        propertyChangeMap.get(ListenerNames.ITEM_ADDED)
-                .forEach( listener -> listener.firePropertyChange(ListenerNames.ITEM_ADDED.toString(),oldItem,super.getItemFromIndex(index)));
+        Item updatedItem = super.getItem(index);
+        updatedItem.setDone(true);
+        propertyChangeMap.get(ListenerNames.ITEM_SET_DONE)
+                .forEach( listener -> listener.firePropertyChange(ListenerNames.ITEM_SET_DONE.toString(),null,updatedItem));
+
+    }
+
+    public void setItemDone(Item item){
+        Item updatedItem = super.getItem(item);
+        updatedItem.setDone(true);
+        propertyChangeMap.get(ListenerNames.ITEM_SET_DONE)
+                .forEach( listener -> listener.firePropertyChange(ListenerNames.ITEM_SET_DONE.toString(),null,updatedItem));
 
     }
 

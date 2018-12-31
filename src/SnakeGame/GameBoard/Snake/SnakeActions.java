@@ -1,5 +1,6 @@
 package SnakeGame.GameBoard.Snake;
 
+import SnakeGame.EventSystem.EventHandler;
 import SnakeGame.Tasks.Snake.MoveSnakeDown;
 import SnakeGame.Tasks.Snake.MoveSnakeLeft;
 import SnakeGame.Tasks.Snake.MoveSnakeRight;
@@ -37,8 +38,12 @@ public class SnakeActions implements PropertyChangeListener {
         }
     }
 
-    private boolean isOutOfBounds(Position pos){
-        return pos.x - 1 < 0 || pos.x + 1 > this.snake.getParentWidth() || pos.y  - 1 < 0 || pos.y + 1 > this.snake.getParentHeight();
+    private boolean isOutOfYBounds(Position pos){
+        return pos.y - 1 > 0 || pos.y + 1 > this.snake.getRowAmount() - 1;
+    }
+
+    private boolean isOutOfXBounds(Position pos){
+        return pos.x - 1 < 0 || pos.x + 1 > this.snake.getColAmount() - 1;
     }
 
     /**
@@ -53,22 +58,18 @@ public class SnakeActions implements PropertyChangeListener {
             Item item = (Item)evt.getNewValue();
             if(!item.isDone()){
                 Position position = this.snake.getCurrentPosition();
-                if(!isOutOfBounds(position)){
-                    if(item.getTask().getTaskOriginator() == MoveSnakeUp.class){
-                        position.y += 1;
-                        move(position);
-                    }else if(item.getTask().getTaskOriginator() == MoveSnakeDown.class){
+                    System.out.println(item.getTask().showTaskDescription());
+                    if(item.getTask().getTaskOriginator() == MoveSnakeUp.class ){
                         position.y -= 1;
-                        move(position);
+                    }else if(item.getTask().getTaskOriginator() == MoveSnakeDown.class){
+                        position.y += 1;
                     }else if(item.getTask().getTaskOriginator() == MoveSnakeRight.class){
                         position.x += 1;
-                        move(position);
                     }else if(item.getTask().getTaskOriginator() == MoveSnakeLeft.class){
                         position.x -= 1;
-                        move(position);
                     }
-                    System.out.println(item.getTask().showTaskDescription());
-                }
+                    move(position);
+                    EventHandler.getInstance().setItemDone(item);
             }
         }
     }

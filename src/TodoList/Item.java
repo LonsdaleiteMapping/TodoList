@@ -1,9 +1,20 @@
 package TodoList;
 
-public interface Item {
+public abstract class Item {
+    private Task task;
+    public boolean done;
 
-    Task getTask();
-    boolean isDone();
-    void setDone(boolean val);
+    public Item(Task task){
+        this.task = task;
+        this.done = false;
+    }
+
+    public Task getTask(){
+        return this.task;
+    }
+
+    public abstract boolean isDone();
+
+    public abstract void setDone(boolean val);
 
 }

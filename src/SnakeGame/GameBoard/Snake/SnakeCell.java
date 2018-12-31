@@ -29,4 +29,13 @@ public class SnakeCell {
     public String getUniqueId(){
         return this.uniqueId;
     }
+
+    @Override
+    public String toString() {
+        return "SnakeCell{" +
+                "apartOfBody=" + apartOfBody +
+                ", uniqueId='" + uniqueId + '\'' +
+                ", position=" + position +
+                '}';
+    }
 }
