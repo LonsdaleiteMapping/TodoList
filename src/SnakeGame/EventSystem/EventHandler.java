@@ -1,6 +1,6 @@
 package SnakeGame.EventSystem;
 
-import SnakeGame.enums.ListenerNames;
+import SnakeGame.Enums.ListenerNames;
 import TodoList.TodoList;
 import TodoList.Item;
 
@@ -18,7 +18,7 @@ public class EventHandler extends TodoList {
 
     Map<ListenerNames, List<PropertyChangeSupport>> propertyChangeMap;
 
-    public EventHandler(){
+    private EventHandler(){
         propertyChangeMap = new HashMap<>();
     }
 

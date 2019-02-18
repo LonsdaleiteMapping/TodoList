@@ -1,4 +1,4 @@
-package SnakeGame.enums;
+package SnakeGame.Enums;
 
 public enum ListenerNames {
     ITEM_ADDED ("ITEM_ADDED"),

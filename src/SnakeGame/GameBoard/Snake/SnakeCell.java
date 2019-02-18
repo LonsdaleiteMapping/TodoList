@@ -1,6 +1,6 @@
 package SnakeGame.GameBoard.Snake;
 
-import SnakeGame.utility.Position;
+import SnakeGame.Utility.Position;
 
 public class SnakeCell {
 

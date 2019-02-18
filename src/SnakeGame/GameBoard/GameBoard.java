@@ -6,8 +6,8 @@ import SnakeGame.Tasks.Snake.MoveSnakeDown;
 import SnakeGame.Tasks.Snake.MoveSnakeLeft;
 import SnakeGame.Tasks.Snake.MoveSnakeRight;
 import SnakeGame.Tasks.Snake.MoveSnakeUp;
-import SnakeGame.enums.ListenerNames;
-import SnakeGame.utility.Position;
+import SnakeGame.Enums.ListenerNames;
+import SnakeGame.Utility.Position;
 import TodoList.Item;
 import TodoList.Task;
 
@@ -84,19 +84,19 @@ public class GameBoard extends JPanel implements PropertyChangeListener {
                 switch(location){
                     case KeyEvent.VK_UP:
                         print("Up");
-                        EventHandler.getInstance().addItem(new GenericTest(new MoveSnakeUp()));
+                        EventHandler.getInstance().addItem(new GenericTask(new MoveSnakeUp()));
                         break;
                     case KeyEvent.VK_DOWN:
                         print("Down");
-                        EventHandler.getInstance().addItem(new GenericTest(new MoveSnakeDown()));
+                        EventHandler.getInstance().addItem(new GenericTask(new MoveSnakeDown()));
                         break;
                     case KeyEvent.VK_LEFT:
                         print("Left");
-                        EventHandler.getInstance().addItem(new GenericTest(new MoveSnakeLeft()));
+                        EventHandler.getInstance().addItem(new GenericTask(new MoveSnakeLeft()));
                         break;
                     case KeyEvent.VK_RIGHT:
                         print("Right");
-                        EventHandler.getInstance().addItem(new GenericTest(new MoveSnakeRight()));
+                        EventHandler.getInstance().addItem(new GenericTask(new MoveSnakeRight()));
                         break;
                 }
             }
@@ -147,9 +147,9 @@ public class GameBoard extends JPanel implements PropertyChangeListener {
         }
     }
 
-    private class GenericTest extends Item{
+    private class GenericTask extends Item{
 
-        public GenericTest(Task task){
+        public GenericTask(Task task){
             super(task);
         }
 

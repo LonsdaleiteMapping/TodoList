@@ -1,4 +1,4 @@
-package SnakeGame.utility;
+package SnakeGame.Utility;
 
 public class Position {
     public int x;

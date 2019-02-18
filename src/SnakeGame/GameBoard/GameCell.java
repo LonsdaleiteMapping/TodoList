@@ -1,8 +1,8 @@
 package SnakeGame.GameBoard;
 
 import SnakeGame.GameBoard.Snake.Snake;
-import SnakeGame.enums.ListenerNames;
-import SnakeGame.utility.Position;
+import SnakeGame.Enums.ListenerNames;
+import SnakeGame.Utility.Position;
 import TodoList.Item;
 
 import javax.swing.*;
